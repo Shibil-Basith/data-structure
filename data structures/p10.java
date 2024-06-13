@@ -1,6 +1,6 @@
 import java.util.*;
 
-class InfixToPostfix {
+class p10 {
     static int precedence(char operator) {
         switch (operator) {
             case '+':
