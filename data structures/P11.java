@@ -1,29 +1,31 @@
 import java.util.Scanner;
 
-public class P11 {
+public class p11 {
 
-    // Method to evaluate the postfix expression
     public static int evaluatePostfix(String expression) {
-        // Create a stack to store the operands
         int[] stack = new int[expression.length()];
-        int top = -1; // Pointer to the top of the stack
+        int top = -1;
 
-        // Iterate through each character in the expression
         for (int i = 0; i < expression.length(); i++) {
             char ch = expression.charAt(i);
-
             if (Character.isDigit(ch)) {
-                // If the character is a digit, push it onto the stack
-                stack[++top] = ch - '0';
+                int operand = 0;
+                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
+                    operand = operand * 10 + (expression.charAt(i) - '0');
+                    i++;
+                }
+                i--; // Decrement i to account for the extra increment in the loop
+                // Push the operand onto the stack
+                stack[++top] = operand;
             } else if (ch == ' ') {
-                // Skip spaces
                 continue;
             } else {
-                // The character is an operator; pop the required operands from the stack
+                if (top < 1) {
+                    throw new IllegalArgumentException("Invalid expression: Not enough operands");
+                }
                 int operand2 = stack[top--];
                 int operand1 = stack[top--];
-                
-                // Perform the operation and push the result back onto the stack
+
                 switch (ch) {
                     case '+':
                         stack[++top] = operand1 + operand2;
@@ -37,28 +39,25 @@ public class P11 {
                     case '/':
                         stack[++top] = operand1 / operand2;
                         break;
+                    case '^':
+                    	stack[++top] = Math.pow(operand1, operand2);
+                    	break;
                 }
             }
         }
-        
-        // The final result is the only value left on the stack
+
+        if (top != 0) {
+            throw new IllegalArgumentException("Invalid expression: Too many operands");
+        }
         return stack[top];
     }
 
-    // Main method to test the evaluation
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Prompt user to enter a postfix expression
         System.out.print("Enter a postfix expression: ");
         String postfixExpression = scanner.nextLine();
-
-        // Evaluate the postfix expression
         int result = evaluatePostfix(postfixExpression);
-
-        // Display the result
         System.out.println("The result of the postfix expression is: " + result);
-
         scanner.close();
     }
 }
