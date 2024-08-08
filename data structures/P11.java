@@ -40,8 +40,10 @@ public class p11 {
                         stack[++top] = operand1 / operand2;
                         break;
                     case '^':
-                    	stack[++top] = Math.pow(operand1, operand2);
-                    	break;
+                        stack[++top] = (int) Math.pow(operand1, operand2); // Cast the result to int
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid operator: " + ch);
                 }
             }
         }
