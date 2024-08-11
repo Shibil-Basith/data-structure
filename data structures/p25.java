@@ -13,11 +13,11 @@ class ListNode {
 }
 
 // CircularLinkedList class to represent the circular linked list
-class CircularLinkedList {
+class p25{
     ListNode head; // Head of the list
 
     // Constructor to initialize an empty circular linked list
-    public CircularLinkedList() {
+    public p25() {
         head = null;
     }
 
@@ -40,6 +40,27 @@ class CircularLinkedList {
             }
             current.next = newNode; // Make last node point to new head
             head = newNode; // Update head to new node
+        }
+    }
+
+
+    public void insertAtLast(int data)
+    {
+        ListNode newNode = new ListNode(data);
+        if(isEmpty())
+        {
+            head = newNode;
+            head.next = head;
+        }
+        else
+        {
+            ListNode current = head;
+            while(current.next!=head)
+            {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            current.next = newNode;
         }
     }
 
@@ -82,40 +103,35 @@ class CircularLinkedList {
 
         ListNode current = head;
         do {
-            System.out.print(current.data + " ");
+            System.out.print(current.data + " -> ");
             current = current.next;
         } while (current != head);
-        System.out.println();
+        System.out.println("null");
     }
-}
 
-// Main class to demonstrate the circular linked list, insert nodes, and display the list before and after insertion at a position
-public class Main {
     public static void main(String[] args) {
-        CircularLinkedList list = new CircularLinkedList();
+        p25 list = new p25();
         Scanner scanner = new Scanner(System.in);
+        int ch = 1;
 
-        System.out.println("Enter the number of nodes to insert at the beginning:");
-        int n = scanner.nextInt();
-
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter data for node " + (i + 1) + ":");
+        System.out.println("Enter elements to the circular linked list: ");
+        while(ch == 1)
+        {
+            System.out.print("Enter data:");
             int data = scanner.nextInt();
-            list.insertAtBeginning(data); // Insert at the beginning for this example
+            list.insertAtLast(data); // Insert at the beginning for this example
+            System.out.println("Do you want to enter more elements: ");
+            ch = scanner.nextInt();
         }
 
-        System.out.println("Circular Linked List after insertion at beginning:");
+        System.out.println("Circular Linked List after initial insertion: ");
         list.display();
 
-        System.out.println("Enter position to insert a new element (1 to " + (n + 1) + "):");
+        System.out.println("Enter position to insert a new element:");
         int position = scanner.nextInt();
 
         System.out.println("Enter data for the new element:");
         int newData = scanner.nextInt();
-
-        // Display the list before insertion at position
-        System.out.println("Circular Linked List before insertion at position:");
-        list.display();
 
         // Insert node at the specified position
         list.insertAtPosition(newData, position);
