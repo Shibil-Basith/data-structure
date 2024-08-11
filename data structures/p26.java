@@ -15,12 +15,12 @@ class ListNode {
 }
 
 // DoublyLinkedList class to represent the doubly linked list
-class DoublyLinkedList {
+class p26 {
     ListNode head; // Head of the list
     ListNode tail; // Tail of the list
 
     // Constructor to initialize an empty doubly linked list
-    public DoublyLinkedList() {
+    public p26() {
         head = null;
         tail = null;
     }
@@ -76,35 +76,36 @@ class DoublyLinkedList {
     }
 
     // Method to search for an element in the doubly linked list (forward)
-    public boolean searchForward(int key) {
+    public int searchForward(int key) {
         ListNode current = head;
+        int i = 1;
         while (current != null) {
             if (current.data == key) {
-                return true;
+                return i;
             }
+            i++;
             current = current.next;
         }
-        return false;
+        return -1;
     }
 
     // Method to search for an element in the doubly linked list (backward)
-    public boolean searchBackward(int key) {
+    public int searchBackward(int key) {
         ListNode current = tail;
+        int i = 1;
         while (current != null) {
             if (current.data == key) {
-                return true;
+                return i;
             }
+            i++;
             current = current.prev;
         }
-        return false;
+        return -1;
     }
-}
 
-// Main class to demonstrate the doubly linked list operations with a menu-driven approach
-public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        DoublyLinkedList list = new DoublyLinkedList();
+        p26 list = new p26();
 
         while (true) {
             System.out.println("\n--- Doubly Linked List Menu ---");
@@ -132,8 +133,9 @@ public class Main {
                 case 4:
                     System.out.print("Enter element to search forward: ");
                     int keyForward = scanner.nextInt();
-                    if (list.searchForward(keyForward)) {
-                        System.out.println(keyForward + " found in the list (Forward).");
+                    int searchForwardPosition = list.searchForward(keyForward);
+                    if (searchForwardPosition != -1) {
+                        System.out.println(keyForward + " found in the list at " + searchForwardPosition + "(Forward).");
                     } else {
                         System.out.println(keyForward + " not found in the list (Forward).");
                     }
@@ -141,10 +143,11 @@ public class Main {
                 case 5:
                     System.out.print("Enter element to search backward: ");
                     int keyBackward = scanner.nextInt();
-                    if (list.searchBackward(keyBackward)) {
-                        System.out.println(keyBackward + " found in the list (Backward).");
+                    int searchBackwardPosition = list.searchBackward(keyBackward);
+                    if (searchBackwardPosition != -1) {
+                        System.out.println(keyBackward + " found in the list at " + searchBackwardPosition + "(Forward).");
                     } else {
-                        System.out.println(keyBackward + " not found in the list (Backward).");
+                        System.out.println(keyBackward + " not found in the list (Forward).");
                     }
                     break;
                 case 6:
@@ -157,4 +160,3 @@ public class Main {
         }
     }
 }
-
